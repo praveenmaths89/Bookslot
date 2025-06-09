@@ -92,10 +92,8 @@
     <p class="highlight">❓ Missed the last Doubt Session?<br />
     🔔 Join the Next One – Limited Free Spots Available!</p>
 
-    <p><strong>📅 Next Session</strong><br />
-    🗓️ Date: <strong>Sunday, June 15th</strong><br />
-    ⏰ Time: 9:30 AM – 10:30 AM (IST)<br />
-    ✅ Confirm your interest by <strong>Friday, June 13th at 12 PM</strong></p>
+    <p id="session-date"></p>
+    <p id="deadline-note"></p>
 
     <a href="https://praveenmaths89.github.io/doubt-session/" class="btn btn-form" target="_blank">Fill Doubt Submission Form</a>
 
@@ -145,5 +143,34 @@
       <p>— Dr. Preety Tuli</p>
     </footer>
   </div>
+
+  <script>
+    function formatDate(date) {
+      return date.toLocaleDateString('en-US', {
+        weekday: 'long',
+        month: 'long',
+        day: 'numeric'
+      });
+    }
+
+    function getNextSunday(today) {
+      const day = today.getDay();
+      const diff = (7 - day) % 7 || 7;
+      const nextSunday = new Date(today);
+      nextSunday.setDate(today.getDate() + diff);
+      return nextSunday;
+    }
+
+    const today = new Date();
+    const sessionDate = getNextSunday(today);
+    const deadlineDate = new Date(sessionDate);
+    deadlineDate.setDate(sessionDate.getDate() - 2);
+
+    document.getElementById("session-date").innerHTML =
+      `<strong>📅 Next Session</strong><br>🗓️ Date: <strong>${formatDate(sessionDate)}</strong><br>⏰ Time: 9:30 AM – 10:30 AM (IST)`;
+
+    document.getElementById("deadline-note").innerHTML =
+      `📝 Please fill out your topic-specific doubts in the form above before <strong>${formatDate(deadlineDate)}</strong> (12 PM).`;
+  </script>
 </body>
 </html>
