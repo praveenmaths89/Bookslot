@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Situational Judgement Sessions</title>
+  <title>Situational Judgement Doubt Session</title>
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(to right, #e3f2fd, #e8eaf6);
+      background: linear-gradient(to right, #e0f7fa, #e8eaf6);
       margin: 0;
       padding: 20px;
       color: #333;
@@ -18,32 +18,23 @@
     }
     .container {
       background: white;
-      max-width: 700px;
+      max-width: 550px;
       padding: 40px;
       border-radius: 12px;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-      overflow-y: auto;
+      text-align: center;
     }
     h1 {
       color: #0d47a1;
       margin-bottom: 10px;
-      text-align: center;
     }
-    p, ul {
-      font-size: 1.05em;
-      margin-bottom: 18px;
-      line-height: 1.6;
-    }
-    ul {
-      padding-left: 18px;
-    }
-    .highlight {
-      font-weight: bold;
-      color: #d32f2f;
+    p {
+      font-size: 1.1em;
+      margin-bottom: 20px;
     }
     .btn {
       display: inline-block;
-      margin: 10px 10px;
+      margin: 12px 8px;
       padding: 14px 24px;
       border-radius: 8px;
       font-size: 1em;
@@ -78,99 +69,26 @@
       margin-top: 30px;
       font-size: 0.9em;
       color: #555;
-      text-align: center;
-    }
-    strong {
-      font-weight: 600;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Situational Judgement Sessions</h1>
+    <h1>Situational Judgement – Next Doubt Session</h1>
+    <p><strong>Date:</strong> Sunday, June 9th<br />
+    <strong>Format:</strong> 1-on-1 or Group Sessions available<br />
+    <strong>Topics:</strong> Ethics, Patient-Centered Care, Communication & More</p>
 
-    <p class="highlight">❓ Missed the last Doubt Session?<br />
-    🔔 Join the Next One – Limited Free Spots Available!</p>
+    <p>📌 Follow the 3 simple steps below to confirm your seat:</p>
 
-    <p id="session-date"></p>
-    <p id="deadline-note"></p>
-
-    <a href="https://praveenmaths89.github.io/doubt-session/" class="btn btn-form" target="_blank">Fill Doubt Submission Form</a>
-
-    <hr />
-
-    <p><strong>💼 Paid Services</strong></p>
-
-    <p><strong>Option 1 – Standard Discussion Sessions</strong></p>
-    <ul>
-      <li>Total: 10 sessions (2 sessions per competency)</li>
-      <li>Content: 4 practice questions per session</li>
-      <li>Duration: 90 minutes per session</li>
-    </ul>
-    <p><strong>🔸 Type A: One-on-One Private Session</strong><br />
-    Fee: $50 per session</p>
-    <p><strong>🔸 Type B: Group Standard Session</strong><br />
-    Fee: $15 per student per session</p>
-    <p>📌 <strong>Dynamic pricing:</strong> Price per student reduces with more participants.</p>
-
-    <p><strong>Option 2 – Custom Discussion Sessions</strong></p>
-    <ul>
-      <li>Structure: Based on pre-submitted questions/queries</li>
-      <li>Duration: 60 minutes per session</li>
-    </ul>
-    <p><strong>🔹 Type A: Private One-on-One Session</strong><br />
-    Focus: Pre-submitted questions<br />
-    Fee: $40 per session</p>
-    <p><strong>🔹 Type B: Counselling Session</strong><br />
-    Focus: Personalized strategy, doubts, planning<br />
-    Fee: $15 per student per session</p>
-
-    <p><strong>✅ To confirm any paid session:</strong></p>
-    <ol>
-      <li><strong>Decide</strong> which service you'd like to go ahead with</li>
-      <li><strong>Step 2:</strong> Book your preferred time slot:</li>
-    </ol>
-    <a href="https://calendar.app.google/Evv21iAP3PXJyFTV9" class="btn btn-book" target="_blank">Book Your Time Slot</a>
-
-    <ol start="3">
-      <li><strong>Step 3:</strong> Make the payment to <u>preetypruthi83@gmail.com</u> and upload confirmation:</li>
-    </ol>
-    <a href="https://forms.gle/tU6XshrBVv311Ra9A" class="btn btn-submit" target="_blank">Submit Payment Confirmation</a>
+    <a href="https://forms.gle/iGhrTTadihyV32gK9" class="btn btn-form" target="_blank">Step 1: Fill Doubt Submission Form</a><br>
+    <a href="https://calendar.app.google/Evv21iAP3PXJyFTV9" class="btn btn-book" target="_blank">Step 2: Book Your Time Slot</a><br>
+    <a href="https://forms.gle/Az8Pb2nGEQhMu3xT8" class="btn btn-submit" target="_blank">Step 3: Confirm by Submitting Screenshot</a>
 
     <footer>
-      <p><strong>📢 Group sessions will be scheduled on weekends (Saturday & Sunday).<br />
-      I will keep you posted with the available slots each week.</strong></p>
-      <p>— Dr. Preety Tuli</p>
+      <p><strong>Note:</strong> Please complete all steps by <strong>Friday, June 7th at 12 PM</strong> to secure your spot.</p>
+      <p>Looking forward to helping you succeed!<br><strong>— Dr. Preety Tuli</strong></p>
     </footer>
   </div>
-
-  <script>
-    function formatDate(date) {
-      return date.toLocaleDateString('en-US', {
-        weekday: 'long',
-        month: 'long',
-        day: 'numeric'
-      });
-    }
-
-    function getNextSunday(today) {
-      const day = today.getDay();
-      const diff = (7 - day) % 7 || 7;
-      const nextSunday = new Date(today);
-      nextSunday.setDate(today.getDate() + diff);
-      return nextSunday;
-    }
-
-    const today = new Date();
-    const sessionDate = getNextSunday(today);
-    const deadlineDate = new Date(sessionDate);
-    deadlineDate.setDate(sessionDate.getDate() - 2);
-
-    document.getElementById("session-date").innerHTML =
-      `<strong>📅 Next Session:</strong> <br>🗓️ Date: <strong>${formatDate(sessionDate)}</strong><br>⏰ Time: 9:30 AM – 10:30 AM (IST)`;
-
-    document.getElementById("deadline-note").innerHTML =
-      `📝 Please fill out your topic-specific doubts in the form above before <strong>${formatDate(deadlineDate)}</strong> (12 PM).`;
-  </script>
 </body>
 </html>
