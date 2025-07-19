@@ -4,11 +4,31 @@
   <meta charset="UTF-8" />
   <title>Access Materials</title>
   <style>
-    body { font-family: sans-serif; text-align: center; padding: 50px; background: #f1f8e9; }
-    input[type="password"] { padding: 10px; font-size: 1em; }
-    button { padding: 10px 20px; font-size: 1em; margin-left: 10px; cursor: pointer; }
-    .hidden { display: none; margin-top: 30px; }
-    ul { text-align: left; display: inline-block; font-size: 1.1em; }
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 50px;
+      background: #f1f8e9;
+    }
+    input[type="password"] {
+      padding: 10px;
+      font-size: 1em;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1em;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+    .hidden {
+      display: none;
+      margin-top: 30px;
+    }
+    iframe {
+      margin-bottom: 40px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
   </style>
 </head>
 <body>
@@ -18,11 +38,17 @@
   <button onclick="checkPass()">Submit</button>
 
   <div id="links" class="hidden">
-    <h3>📂 Available Files</h3>
-    <ul>
-      <li><a href="materials/Sessions%20Notes.pptx" target="_blank">📘 Sessions Notes (PPTX)</a></li>
-      <li><a href="materials/Patient%20Evaluation%20%26%20Assessment.pptx" target="_blank">📙 Patient Evaluation & Assessment (PPTX)</a></li>
-    </ul>
+    <h3>📂 View Study Materials</h3>
+
+    <h4>📘 Sessions Notes</h4>
+    <iframe src="https://docs.google.com/presentation/d/17Fmsl3Ku91i-AmsWSS5OXEYN5rNd2VOm/embed?start=false&loop=false&delayms=3000" 
+            width="720" height="450" frameborder="0" allowfullscreen="true" 
+            mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+
+    <h4>📙 Patient Evaluation & Assessment</h4>
+    <iframe src="https://docs.google.com/presentation/d/1mM9_zd6naZCCb3mXe_remVubr9sKTjSq/embed?start=false&loop=false&delayms=3000" 
+            width="720" height="450" frameborder="0" allowfullscreen="true" 
+            mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
   </div>
 
   <script>
