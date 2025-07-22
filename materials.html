@@ -28,19 +28,12 @@
       margin-top: 30px;
     }
 
-    .slide-container {
-      position: relative;
-      display: inline-block;
-      width: 90%;
-      max-width: 1280px;
-      margin: 30px auto;
-    }
-
     iframe {
       border: 1px solid #ccc;
       border-radius: 8px;
-      width: 100%;
-      height: 750px;
+      width: 90%;
+      max-width: 1280px;
+      height: 800px;
     }
 
     .no-click-bar {
@@ -52,30 +45,19 @@
       background: transparent;
       z-index: 10;
     }
-
-    body {
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-    }
-
-    iframe {
-      pointer-events: auto;
-    }
   </style>
 </head>
-<body oncontextmenu="return false;">
+<body>
   <h2>🔐 Study Materials</h2>
-  <p>Enter the password to view available files:</p>
+  <p>Enter the password to view available materials:</p>
   <input type="password" id="passInput" placeholder="Enter password">
   <button onclick="checkPass()">Submit</button>
 
   <div id="links" class="hidden">
-    <h3>📘 Patient Evaluation & Assessment (PDF View Only)</h3>
+    <h3>📘 PCC-1 Slide (View Only)</h3>
     <div class="slide-container">
       <iframe src="https://drive.google.com/file/d/1CSOapQv0n6jBlkxAxGN67zN1Fwml4TGV/preview"
-              frameborder="0" allow="autoplay"></iframe>
+              frameborder="0" allowfullscreen></iframe>
       <div class="no-click-bar"></div>
     </div>
   </div>
