@@ -10,42 +10,18 @@
       padding: 50px;
       background: #f1f8e9;
     }
-
-    input[type="password"] {
-      padding: 10px;
-      font-size: 1em;
-    }
-
-    button {
-      padding: 10px 20px;
-      font-size: 1em;
-      margin-left: 10px;
-      cursor: pointer;
-    }
-
-    .hidden {
-      display: none;
-      margin-top: 30px;
-    }
-
+    input[type="password"] { padding: 10px; font-size: 1em; }
+    button { padding: 10px 20px; font-size: 1em; margin-left: 10px; cursor: pointer; }
+    .hidden { display: none; margin-top: 30px; }
     iframe {
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      width: 90%;
-      max-width: 1280px;
-      height: 800px;
-    }
-
-    .no-click-bar {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      height: 40px;
-      width: 140px;
-      background: transparent;
-      z-index: 10;
+      border: 1px solid #ccc; border-radius: 8px;
+      width: 90%; max-width: 1280px; height: 800px;
     }
     .slide-container { position: relative; display: inline-block; }
+    .no-click-bar {
+      position: absolute; bottom: 0; right: 0; height: 40px; width: 140px;
+      background: transparent; z-index: 10;
+    }
   </style>
 </head>
 <body>
@@ -55,6 +31,14 @@
   <button onclick="checkPass()">Submit</button>
 
   <div id="links" class="hidden">
+    <!-- Professional Notes (NEW) -->
+    <h3>📔 Session — Professional Notes (PDF View Only)</h3>
+    <div class="slide-container">
+      <iframe src="https://drive.google.com/file/d/1pigh_UlE2spcRDd-etIsHdBJW7u2hqux/preview?v=20250820"
+              frameborder="0" allowfullscreen></iframe>
+      <div class="no-click-bar"></div>
+    </div>
+
     <!-- Session 1 -->
     <h3>📘 Session 1 (PDF View Only)</h3>
     <div class="slide-container">
@@ -79,7 +63,7 @@
       <div class="no-click-bar"></div>
     </div>
 
-    <!-- Session 4 & 5 (UPDATED) -->
+    <!-- Session 4 & 5 -->
     <h3>📒 Session 4 & 5 (PDF View Only)</h3>
     <div class="slide-container">
       <iframe src="https://drive.google.com/file/d/1HoVAk9_PbK7qPLOBgfqCJyBZbPZi8NSV/preview"
@@ -91,14 +75,6 @@
     <h3>📕 Post Operative Instructions - Communication</h3>
     <div class="slide-container">
       <iframe src="https://docs.google.com/document/d/1ew_4TyFHIPPOhmLukFzNGjVhHP99iZES/preview"
-              frameborder="0" allowfullscreen></iframe>
-      <div class="no-click-bar"></div>
-    </div>
-
-    <!-- Professional Notes (NEW) -->
-    <h3>📔 Professional Notes (PDF View Only)</h3>
-    <div class="slide-container">
-      <iframe src="https://drive.google.com/file/d/1pigh_UlE2spcRDd-etIsHdBJW7u2hqux/preview"
               frameborder="0" allowfullscreen></iframe>
       <div class="no-click-bar"></div>
     </div>
