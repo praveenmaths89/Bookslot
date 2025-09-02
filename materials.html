@@ -111,7 +111,7 @@
 
     <!-- Main -->
     <main class="main">
-      <div class="info" id="infoMsg">Sign in with Google first. After sign‑in, enter the password to unlock materials.</div>
+      <div class="info" id="infoMsg">Sign in with Google first. After sign-in, enter the password to unlock materials.</div>
 
       <div class="search">
         <input id="searchBox" type="search" placeholder="Search sessions (e.g., “Professional”, “Session 4”)" />
@@ -238,20 +238,21 @@
   <!-- ===== APP SCRIPT with Firebase Auth + Firestore logging ===== -->
   <script type="module">
     /***********************************
-     * 1) Firebase SETUP (REQUIRED)
-     *    Replace the firebaseConfig with your own values from Firebase Console
+     * 1) Firebase SETUP
      ***********************************/
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-    import { getFirestore, doc, setDoc, updateDoc, addDoc, collection, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { getFirestore, doc, updateDoc, addDoc, collection, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
+    // YOUR REAL CONFIG
     const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_PROJECT_ID.appspot.com",
-      messagingSenderId: "YOUR_SENDER_ID",
-      appId: "YOUR_APP_ID"
+      apiKey: "AIzaSyD6l-vKi_G7d-HKUoUhDW34M6OoOa4hYE0",
+      authDomain: "student-portal-c51e2.firebaseapp.com",
+      projectId: "student-portal-c51e2",
+      storageBucket: "student-portal-c51e2.firebasestorage.app",
+      messagingSenderId: "1044540157395",
+      appId: "1:1044540157395:web:bb377f7ce29a2fc9a01326",
+      measurementId: "G-HVGSMX0J5P"
     };
 
     const app = initializeApp(firebaseConfig);
@@ -282,26 +283,23 @@
     const PASSWORD = "Ignitedental@123";
 
     // Session logging vars
-    let currentSessionId = null;         // Firestore doc id for this visit
-    let activeMs = 0;                    // accumulated active milliseconds
+    let currentSessionId = null;
+    let activeMs = 0;
     let lastActivityTs = Date.now();
-    let activityTimer = null;            // interval id
-    let heartbeatTimer = null;           // interval id
+    let activityTimer = null;
+    let heartbeatTimer = null;
 
-    // Helper — get (and persist) session id in localStorage so reloads keep the same session
     function getOrCreateLocalSessionKey(){
       const key = 'portal_session_id';
       let val = localStorage.getItem(key);
-      if(!val){ val = crypto.randomUUID(); localStorage.setItem(key, val); }
+      if(!val){ val = (crypto?.randomUUID?.() || String(Math.random())).toString(); localStorage.setItem(key, val); }
       return val;
     }
 
     async function startSessionLog(user){
       try{
         const localSessionKey = getOrCreateLocalSessionKey();
-        const sessionsCol = collection(db, 'sessions');
-        // Create a new session doc (we use addDoc to get server time)
-        const ref = await addDoc(sessionsCol, {
+        const ref = await addDoc(collection(db, 'sessions'), {
           local_session_key: localSessionKey,
           uid: user.uid,
           email: user.email,
@@ -314,9 +312,7 @@
           last_heartbeat: serverTimestamp()
         });
         currentSessionId = ref.id;
-      } catch(e){
-        console.error('Failed to start session log', e);
-      }
+      } catch(e){ console.error('Failed to start session log', e); }
     }
 
     async function endSessionLog(){
@@ -337,7 +333,6 @@
 
     function trackActivity(){
       const now = Date.now();
-      // Count only when page is visible and focused
       if(document.visibilityState === 'visible' && document.hasFocus()){
         activeMs += (now - lastActivityTs);
       }
@@ -345,24 +340,18 @@
     }
 
     function bindActivityTracking(){
-      // update counters every second
       activityTimer = setInterval(trackActivity, 1000);
-      // heartbeat to Firestore every 30s
       heartbeatTimer = setInterval(heartbeat, 30000);
-      // reset timestamps on user interaction
       ['click','keydown','mousemove','scroll','focus','blur','visibilitychange'].forEach(evt => {
         window.addEventListener(evt, () => { lastActivityTs = Date.now(); });
       });
-      // write final on unload
       window.addEventListener('beforeunload', () => { trackActivity(); endSessionLog(); });
     }
 
-    // Optional: log which card was opened
     function logCardOpen(title){
       try{
         if(!currentSessionId) return;
-        const evCol = collection(db, 'sessions', currentSessionId, 'events');
-        addDoc(evCol, { type:'card_open', title, ts: serverTimestamp() });
+        addDoc(collection(db, 'sessions', currentSessionId, 'events'), { type:'card_open', title, ts: serverTimestamp() });
       } catch(e){ /* noop */ }
     }
 
@@ -371,10 +360,18 @@
       try{
         await signInWithPopup(auth, provider);
       } catch(e){
-        alert('Google sign-in failed');
-        console.error(e);
+        // fallback for popup issues
+        if (e?.code === 'auth/popup-blocked' || e?.code === 'auth/popup-closed-by-user') {
+          try { await signInWithRedirect(auth, provider); }
+          catch (er) { alert(`Sign-in failed: ${er.code}`); console.error(er); }
+        } else {
+          alert(`Sign-in failed: ${e.code}`); console.error(e);
+        }
       }
     });
+
+    // handle redirect result if used
+    getRedirectResult(auth).catch(e => console.error('Redirect sign-in error', e));
 
     if(signOutBtn){
       signOutBtn.addEventListener('click', async () => {
@@ -390,15 +387,12 @@
 
     onAuthStateChanged(auth, async (user) => {
       if(user){
-        // Show user chip
         userChip.classList.remove('hidden');
         document.getElementById('googleSignInBtn').classList.add('hidden');
         userNameSpan.textContent = user.displayName || user.email;
         if(user.photoURL){ userPhotoImg.src = user.photoURL; userPhotoImg.alt = user.displayName || 'User'; }
 
         infoMsg.textContent = 'Signed in. Enter the password to unlock materials.';
-
-        // Start session log and tracking
         await startSessionLog(user);
         bindActivityTracking();
       } else {
@@ -426,10 +420,9 @@
         alert('Incorrect password');
       }
     }
-    unlockBtn.addEventListener('click', unlock);
+    document.getElementById('unlockBtn').addEventListener('click', unlock);
     passInput.addEventListener('keydown', e => { if(e.key === 'Enter') unlock(); });
 
-    // Show/Hide content quickly
     let contentHidden = false;
     showHideBtn.addEventListener('click', () => {
       contentHidden = !contentHidden;
@@ -485,17 +478,14 @@
   </script>
 
   <!-- ===== Firestore Security Rules (guidance) =====
-  Add the following in Firebase Console > Firestore > Rules to restrict access
-  (adjust allowed emails / domains as needed):
+  Put this in Firebase Console > Firestore > Rules (publish to apply):
 
   rules_version = '2';
   service cloud.firestore {
     match /databases/{database}/documents {
-      // Sessions
       match /sessions/{sessionId} {
-        allow create: if request.auth != null; // anyone signed in can create a session log
-        allow update: if request.auth != null; // allow heartbeat updates
-        allow read: if false;                  // prevent reading logs from client by default
+        allow create, update: if request.auth != null;
+        allow read, delete: if false;
       }
       match /sessions/{sessionId}/events/{eventId} {
         allow create: if request.auth != null;
