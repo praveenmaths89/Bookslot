@@ -6,129 +6,65 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root{
-      --bg:#f6faf4;
-      --card:#ffffff;
-      --accent:#2e7d32;
-      --accent-2:#66bb6a;
-      --text:#1b1b1b;
-      --muted:#6b7280;
-      --border:#e5e7eb;
-      --shadow:0 6px 20px rgba(0,0,0,.06);
-      --radius:14px;
+      --bg:#f6faf4; --card:#ffffff; --accent:#2e7d32; --accent-2:#66bb6a; --text:#1b1b1b;
+      --muted:#6b7280; --border:#e5e7eb; --shadow:0 6px 20px rgba(0,0,0,.06); --radius:14px;
     }
     *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
-      color:var(--text);
-      background:linear-gradient(180deg,#f1f8e9 0%, var(--bg) 100%);
-    }
+    body{ margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji"; color:var(--text); background:linear-gradient(180deg,#f1f8e9 0%, var(--bg) 100%); }
 
     /* Sticky header */
-    .header{
-      position:sticky; top:0; z-index:50;
-      backdrop-filter:saturate(120%) blur(6px);
-      background:rgba(246,250,244,.75);
-      border-bottom:1px solid var(--border);
-    }
-    .header-inner{
-      max-width:1200px; margin:0 auto; padding:14px 16px;
-      display:flex; gap:12px; align-items:center; justify-content:space-between;
-    }
-    .title{
-      display:flex; align-items:center; gap:10px; font-weight:700;
-    }
+    .header{ position:sticky; top:0; z-index:50; backdrop-filter:saturate(120%) blur(6px); background:rgba(246,250,244,.75); border-bottom:1px solid var(--border); }
+    .header-inner{ max-width:1200px; margin:0 auto; padding:14px 16px; display:flex; gap:12px; align-items:center; justify-content:space-between; }
+    .title{ display:flex; align-items:center; gap:10px; font-weight:700; }
     .title span{ font-size:22px }
-    .lock{
-      display:flex; gap:8px; align-items:center;
-    }
-    input[type="password"]{
-      padding:10px 12px; font-size:14px; border:1px solid var(--border);
-      border-radius:10px; outline:none; width:220px; background:#fff;
-    }
-    button{
-      padding:10px 14px; font-size:14px; border:none; cursor:pointer;
-      border-radius:10px; background:var(--accent); color:#fff; box-shadow:var(--shadow);
-    }
+
+    /* Auth area */
+    .auth{ display:flex; align-items:center; gap:10px; }
+    .user-chip{ display:flex; align-items:center; gap:8px; padding:6px 10px; border:1px solid var(--border); border-radius:999px; background:#fff; }
+    .user-chip img{ width:22px; height:22px; border-radius:50%; }
+
+    .lock{ display:flex; gap:8px; align-items:center; }
+    input[type="password"]{ padding:10px 12px; font-size:14px; border:1px solid var(--border); border-radius:10px; outline:none; width:220px; background:#fff; }
+    button{ padding:10px 14px; font-size:14px; border:none; cursor:pointer; border-radius:10px; background:var(--accent); color:#fff; box-shadow:var(--shadow); }
     button.secondary{ background:#1118270d; color:#111827; border:1px solid var(--border) }
+    button.ghost{ background:#fff; color:#111827; border:1px solid var(--border); }
 
     /* Layout */
-    .layout{
-      max-width:1200px; margin:24px auto; padding:0 16px;
-      display:grid; grid-template-columns:260px 1fr; gap:18px;
-    }
+    .layout{ max-width:1200px; margin:24px auto; padding:0 16px; display:grid; grid-template-columns:260px 1fr; gap:18px; }
 
     /* Sidebar */
-    .sidebar{
-      position:sticky; top:78px; align-self:start;
-      background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
-      box-shadow:var(--shadow); padding:12px;
-    }
+    .sidebar{ position:sticky; top:78px; align-self:start; background:var(--card); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow); padding:12px; }
     .sidebar h4{ margin:8px 8px 6px; color:#111827; }
-    .quickjump{
-      display:flex; flex-direction:column; gap:8px; margin-top:8px;
-    }
-    .quickjump button{
-      background:#fff; color:#111827; text-align:left; border:1px solid var(--border);
-    }
+    .quickjump{ display:flex; flex-direction:column; gap:8px; margin-top:8px; }
+    .quickjump button{ background:#fff; color:#111827; text-align:left; border:1px solid var(--border); }
     .quickjump button:hover{ border-color:var(--accent-2) }
 
     /* Main */
-    .main{
-      min-height:60vh;
-    }
-    .info{
-      background:#ecfdf5; border:1px solid #a7f3d0; color:#065f46;
-      padding:12px 14px; border-radius:12px; display:flex; align-items:center; gap:10px;
-      font-size:14px; margin-bottom:12px;
-    }
-    .search{
-      display:flex; gap:10px; margin:8px 0 18px;
-    }
-    .search input{
-      flex:1; padding:10px 12px; border:1px solid var(--border); border-radius:10px; background:#fff;
-    }
+    .main{ min-height:60vh; }
+    .info{ background:#ecfdf5; border:1px solid #a7f3d0; color:#065f46; padding:12px 14px; border-radius:12px; display:flex; align-items:center; gap:10px; font-size:14px; margin-bottom:12px; }
+    .search{ display:flex; gap:10px; margin:8px 0 18px; }
+    .search input{ flex:1; padding:10px 12px; border:1px solid var(--border); border-radius:10px; background:#fff; }
 
     /* Cards */
-    .card{
-      background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
-      box-shadow:var(--shadow); overflow:hidden; margin-bottom:14px;
-    }
-    .card-header{
-      padding:14px 16px; display:flex; justify-content:space-between; align-items:center;
-      cursor:pointer; user-select:none; gap:10px;
-    }
+    .card{ background:var(--card); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden; margin-bottom:14px; }
+    .card-header{ padding:14px 16px; display:flex; justify-content:space-between; align-items:center; cursor:pointer; user-select:none; gap:10px; }
     .card-header h3{ margin:0; font-size:16px; display:flex; gap:10px; align-items:center; }
     .tag{ font-size:12px; color:#065f46; background:#d1fae5; padding:4px 8px; border-radius:999px; }
     .actions{ display:flex; gap:8px; }
     .chev{ transition:transform .2s ease }
     .card.open .chev{ transform:rotate(90deg) }
-    .card-body{
-      display:none; border-top:1px solid var(--border); background:#fafafa;
-      padding:0 0 14px;
-    }
+    .card-body{ display:none; border-top:1px solid var(--border); background:#fafafa; padding:0 0 14px; }
     .card.open .card-body{ display:block; }
 
     .slide-container{ position:relative; display:flex; justify-content:center; padding:14px; }
-    iframe{
-      width:100%; height:70vh; max-height:820px; border:1px solid var(--border); border-radius:12px; background:#fff;
-    }
-    .no-click-bar{
-      position:absolute; bottom:0; right:0; height:40px; width:140px; background:transparent; z-index:10;
-    }
-    .links-row{
-      display:flex; gap:10px; padding:0 16px 14px; flex-wrap:wrap;
-    }
-    .links-row a{
-      font-size:13px; text-decoration:none; padding:8px 10px; border-radius:8px; border:1px solid var(--border);
-      color:#111827; background:#fff;
-    }
+    iframe{ width:100%; height:70vh; max-height:820px; border:1px solid var(--border); border-radius:12px; background:#fff; }
+    .no-click-bar{ position:absolute; bottom:0; right:0; height:40px; width:140px; background:transparent; z-index:10; }
+    .links-row{ display:flex; gap:10px; padding:0 16px 14px; flex-wrap:wrap; }
+    .links-row a{ font-size:13px; text-decoration:none; padding:8px 10px; border-radius:8px; border:1px solid var(--border); color:#111827; background:#fff; }
     .links-row a:hover{ border-color:var(--accent-2) }
 
     /* Back to top */
-    .totop{
-      position:fixed; right:18px; bottom:18px; z-index:40; display:none;
-    }
+    .totop{ position:fixed; right:18px; bottom:18px; z-index:40; display:none; }
     .totop.show{ display:block; }
 
     /* Hidden until unlocked */
@@ -136,11 +72,7 @@
     .hidden{ display:none !important; }
 
     /* Mobile */
-    @media (max-width: 900px){
-      .layout{ grid-template-columns:1fr; }
-      .sidebar{ position:relative; top:auto; }
-      iframe{ height:64vh; }
-    }
+    @media (max-width: 900px){ .layout{ grid-template-columns:1fr; } .sidebar{ position:relative; top:auto; } iframe{ height:64vh; } }
   </style>
 </head>
 <body class="locked">
@@ -150,7 +82,18 @@
       <div class="title">
         <span>🔐 Study Materials</span>
       </div>
-      <div class="lock">
+
+      <!-- AUTH + LOCK REGION -->
+      <div class="auth" id="authArea">
+        <button id="googleSignInBtn" aria-label="Sign in with Google">Sign in with Google</button>
+        <div id="userChip" class="user-chip hidden">
+          <img id="userPhoto" alt="" />
+          <span id="userName"></span>
+          <button id="signOutBtn" class="ghost" aria-label="Sign out">Sign out</button>
+        </div>
+      </div>
+
+      <div class="lock" id="lockArea">
         <input type="password" id="passInput" placeholder="Enter password" aria-label="Password" />
         <button id="unlockBtn" aria-label="Submit password">Unlock</button>
         <button id="showHideBtn" class="secondary hidden" aria-label="Hide/Show content">Hide</button>
@@ -163,70 +106,50 @@
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
       <h4>Quick Jump</h4>
-      <div class="quickjump" id="jumpList">
-        <!-- Filled by JS -->
-      </div>
+      <div class="quickjump" id="jumpList"></div>
     </aside>
 
     <!-- Main -->
     <main class="main">
-      <div class="info" id="infoMsg">Enter the password to unlock materials.</div>
+      <div class="info" id="infoMsg">Sign in with Google first. After sign‑in, enter the password to unlock materials.</div>
 
       <div class="search">
         <input id="searchBox" type="search" placeholder="Search sessions (e.g., “Professional”, “Session 4”)" />
       </div>
 
-      <!-- Session Cards -->
-      <!-- Professional Notes -->
+      <!-- ===== CARDS (unchanged content) ===== -->
       <section class="card" data-title="Professional Notes" id="sec-professional-notes">
         <div class="card-header" role="button">
           <h3>📔 Session — Professional Notes <span class="tag">PDF View Only</span></h3>
-          <div class="actions">
-            <span class="chev">▶</span>
-          </div>
+          <div class="actions"><span class="chev">▶</span></div>
         </div>
         <div class="card-body">
           <div class="links-row">
             <a href="https://drive.google.com/file/d/1pigh_UlE2spcRDd-etIsHdBJW7u2hqux/view?usp=sharing" target="_blank" rel="noopener">Open in new tab</a>
           </div>
           <div class="slide-container">
-            <!-- Lazy load via data-src; cache-bust with v=20250820 -->
-            <iframe
-              data-src="https://drive.google.com/file/d/1pigh_UlE2spcRDd-etIsHdBJW7u2hqux/preview?v=20250820"
-              title="Professional Notes"
-              loading="lazy"
-              referrerpolicy="no-referrer">
-            </iframe>
+            <iframe data-src="https://drive.google.com/file/d/1pigh_UlE2spcRDd-etIsHdBJW7u2hqux/preview?v=20250820" title="Professional Notes" loading="lazy" referrerpolicy="no-referrer"></iframe>
             <div class="no-click-bar"></div>
           </div>
         </div>
       </section>
-<!-- PIM Notes -->
-<section class="card" data-title="PIM Notes" id="sec-pim-notes">
-  <div class="card-header" role="button">
-    <h3>🧾 PIM Notes <span class="tag">PDF View Only</span></h3>
-    <div class="actions">
-      <span class="chev">▶</span>
-    </div>
-  </div>
-  <div class="card-body">
-    <div class="links-row">
-      <a href="https://drive.google.com/file/d/1rtgCqXDcv2M3sOj6pdlUAm2bMqKR_ami/view?usp=sharing" target="_blank" rel="noopener">Open in new tab</a>
-    </div>
-    <div class="slide-container">
-      <!-- Lazy load via data-src; cache-bust with v=20250824 -->
-      <iframe
-        data-src="https://drive.google.com/file/d/1rtgCqXDcv2M3sOj6pdlUAm2bMqKR_ami/preview?v=20250824"
-        title="PIM Notes"
-        loading="lazy"
-        referrerpolicy="no-referrer">
-      </iframe>
-      <div class="no-click-bar"></div>
-    </div>
-  </div>
-</section>
 
-      <!-- Session 1 -->
+      <section class="card" data-title="PIM Notes" id="sec-pim-notes">
+        <div class="card-header" role="button">
+          <h3>🧾 PIM Notes <span class="tag">PDF View Only</span></h3>
+          <div class="actions"><span class="chev">▶</span></div>
+        </div>
+        <div class="card-body">
+          <div class="links-row">
+            <a href="https://drive.google.com/file/d/1rtgCqXDcv2M3sOj6pdlUAm2bMqKR_ami/view?usp=sharing" target="_blank" rel="noopener">Open in new tab</a>
+          </div>
+          <div class="slide-container">
+            <iframe data-src="https://drive.google.com/file/d/1rtgCqXDcv2M3sOj6pdlUAm2bMqKR_ami/preview?v=20250824" title="PIM Notes" loading="lazy" referrerpolicy="no-referrer"></iframe>
+            <div class="no-click-bar"></div>
+          </div>
+        </div>
+      </section>
+
       <section class="card" data-title="Session 1" id="sec-session-1">
         <div class="card-header" role="button">
           <h3>📘 Session 1 <span class="tag">PDF View Only</span></h3>
@@ -237,14 +160,12 @@
             <a href="https://drive.google.com/file/d/1CSOapQv0n6jBlkxAxGN67zN1Fwml4TGV/view" target="_blank" rel="noopener">Open in new tab</a>
           </div>
           <div class="slide-container">
-            <iframe data-src="https://drive.google.com/file/d/1CSOapQv0n6jBlkxAxGN67zN1Fwml4TGV/preview"
-                    title="Session 1" loading="lazy"></iframe>
+            <iframe data-src="https://drive.google.com/file/d/1CSOapQv0n6jBlkxAxGN67zN1Fwml4TGV/preview" title="Session 1" loading="lazy"></iframe>
             <div class="no-click-bar"></div>
           </div>
         </div>
       </section>
 
-      <!-- Session 2 -->
       <section class="card" data-title="Session 2" id="sec-session-2">
         <div class="card-header" role="button">
           <h3>📙 Session 2 <span class="tag">PDF View Only</span></h3>
@@ -255,14 +176,12 @@
             <a href="https://drive.google.com/file/d/1BWQdlf8hTsLa1d8DrUInVybpRd3jGrkZ/view" target="_blank" rel="noopener">Open in new tab</a>
           </div>
           <div class="slide-container">
-            <iframe data-src="https://drive.google.com/file/d/1BWQdlf8hTsLa1d8DrUInVybpRd3jGrkZ/preview"
-                    title="Session 2" loading="lazy"></iframe>
+            <iframe data-src="https://drive.google.com/file/d/1BWQdlf8hTsLa1d8DrUInVybpRd3jGrkZ/preview" title="Session 2" loading="lazy"></iframe>
             <div class="no-click-bar"></div>
           </div>
         </div>
       </section>
 
-      <!-- Session 3 -->
       <section class="card" data-title="Session 3" id="sec-session-3">
         <div class="card-header" role="button">
           <h3>📗 Session 3 <span class="tag">PDF View Only</span></h3>
@@ -273,14 +192,12 @@
             <a href="https://drive.google.com/file/d/1Qoo6YHBPCEE95mjH_kx33F-ou2UJnjGs/view" target="_blank" rel="noopener">Open in new tab</a>
           </div>
           <div class="slide-container">
-            <iframe data-src="https://drive.google.com/file/d/1Qoo6YHBPCEE95mjH_kx33F-ou2UJnjGs/preview"
-                    title="Session 3" loading="lazy"></iframe>
+            <iframe data-src="https://drive.google.com/file/d/1Qoo6YHBPCEE95mjH_kx33F-ou2UJnjGs/preview" title="Session 3" loading="lazy"></iframe>
             <div class="no-click-bar"></div>
           </div>
         </div>
       </section>
 
-      <!-- Session 4 & 5 -->
       <section class="card" data-title="Session 4 5" id="sec-session-4-5">
         <div class="card-header" role="button">
           <h3>📒 Session 4 & 5 <span class="tag">PDF View Only</span></h3>
@@ -291,14 +208,12 @@
             <a href="https://drive.google.com/file/d/1HoVAk9_PbK7qPLOBgfqCJyBZbPZi8NSV/view" target="_blank" rel="noopener">Open in new tab</a>
           </div>
           <div class="slide-container">
-            <iframe data-src="https://drive.google.com/file/d/1HoVAk9_PbK7qPLOBgfqCJyBZbPZi8NSV/preview"
-                    title="Session 4 & 5" loading="lazy"></iframe>
+            <iframe data-src="https://drive.google.com/file/d/1HoVAk9_PbK7qPLOBgfqCJyBZbPZi8NSV/preview" title="Session 4 & 5" loading="lazy"></iframe>
             <div class="no-click-bar"></div>
           </div>
         </div>
       </section>
 
-      <!-- Session 6 -->
       <section class="card" data-title="Post Operative Instructions Communication Session 6" id="sec-session-6">
         <div class="card-header" role="button">
           <h3>📕 Post Operative Instructions — Communication <span class="tag">Doc View</span></h3>
@@ -309,8 +224,7 @@
             <a href="https://docs.google.com/document/d/1ew_4TyFHIPPOhmLukFzNGjVhHP99iZES/edit" target="_blank" rel="noopener">Open in Google Docs</a>
           </div>
           <div class="slide-container">
-            <iframe data-src="https://docs.google.com/document/d/1ew_4TyFHIPPOhmLukFzNGjVhHP99iZES/preview"
-                    title="Post Operative Instructions — Communication" loading="lazy"></iframe>
+            <iframe data-src="https://docs.google.com/document/d/1ew_4TyFHIPPOhmLukFzNGjVhHP99iZES/preview" title="Post Operative Instructions — Communication" loading="lazy"></iframe>
             <div class="no-click-bar"></div>
           </div>
         </div>
@@ -321,11 +235,33 @@
   <!-- Back to top -->
   <button class="totop" id="toTop" aria-label="Back to top">⬆️ Top</button>
 
-  <script>
-    // --- CONFIG ---
-    const PASSWORD = "Ignitedental@123";
+  <!-- ===== APP SCRIPT with Firebase Auth + Firestore logging ===== -->
+  <script type="module">
+    /***********************************
+     * 1) Firebase SETUP (REQUIRED)
+     *    Replace the firebaseConfig with your own values from Firebase Console
+     ***********************************/
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { getFirestore, doc, setDoc, updateDoc, addDoc, collection, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-    // Elements
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const provider = new GoogleAuthProvider();
+
+    /***********************************
+     * 2) DOM REFS
+     ***********************************/
     const body = document.body;
     const unlockBtn = document.getElementById('unlockBtn');
     const showHideBtn = document.getElementById('showHideBtn');
@@ -336,17 +272,158 @@
     const jumpList = document.getElementById('jumpList');
     const cards = Array.from(document.querySelectorAll('.card'));
 
-    // Unlock flow
+    const googleSignInBtn = document.getElementById('googleSignInBtn');
+    const signOutBtn = document.getElementById('signOutBtn');
+    const userChip = document.getElementById('userChip');
+    const userNameSpan = document.getElementById('userName');
+    const userPhotoImg = document.getElementById('userPhoto');
+
+    // Gate password (still required after Google auth)
+    const PASSWORD = "Ignitedental@123";
+
+    // Session logging vars
+    let currentSessionId = null;         // Firestore doc id for this visit
+    let activeMs = 0;                    // accumulated active milliseconds
+    let lastActivityTs = Date.now();
+    let activityTimer = null;            // interval id
+    let heartbeatTimer = null;           // interval id
+
+    // Helper — get (and persist) session id in localStorage so reloads keep the same session
+    function getOrCreateLocalSessionKey(){
+      const key = 'portal_session_id';
+      let val = localStorage.getItem(key);
+      if(!val){ val = crypto.randomUUID(); localStorage.setItem(key, val); }
+      return val;
+    }
+
+    async function startSessionLog(user){
+      try{
+        const localSessionKey = getOrCreateLocalSessionKey();
+        const sessionsCol = collection(db, 'sessions');
+        // Create a new session doc (we use addDoc to get server time)
+        const ref = await addDoc(sessionsCol, {
+          local_session_key: localSessionKey,
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName || null,
+          photoURL: user.photoURL || null,
+          userAgent: navigator.userAgent,
+          start_time: serverTimestamp(),
+          end_time: null,
+          active_ms: 0,
+          last_heartbeat: serverTimestamp()
+        });
+        currentSessionId = ref.id;
+      } catch(e){
+        console.error('Failed to start session log', e);
+      }
+    }
+
+    async function endSessionLog(){
+      try{
+        if(!currentSessionId) return;
+        const ref = doc(db, 'sessions', currentSessionId);
+        await updateDoc(ref, { end_time: serverTimestamp(), active_ms: activeMs, last_heartbeat: serverTimestamp() });
+      } catch(e){ console.error('Failed to end session', e); }
+    }
+
+    async function heartbeat(){
+      try{
+        if(!currentSessionId) return;
+        const ref = doc(db, 'sessions', currentSessionId);
+        await updateDoc(ref, { active_ms: activeMs, last_heartbeat: serverTimestamp() });
+      } catch(e){ /* noop */ }
+    }
+
+    function trackActivity(){
+      const now = Date.now();
+      // Count only when page is visible and focused
+      if(document.visibilityState === 'visible' && document.hasFocus()){
+        activeMs += (now - lastActivityTs);
+      }
+      lastActivityTs = now;
+    }
+
+    function bindActivityTracking(){
+      // update counters every second
+      activityTimer = setInterval(trackActivity, 1000);
+      // heartbeat to Firestore every 30s
+      heartbeatTimer = setInterval(heartbeat, 30000);
+      // reset timestamps on user interaction
+      ['click','keydown','mousemove','scroll','focus','blur','visibilitychange'].forEach(evt => {
+        window.addEventListener(evt, () => { lastActivityTs = Date.now(); });
+      });
+      // write final on unload
+      window.addEventListener('beforeunload', () => { trackActivity(); endSessionLog(); });
+    }
+
+    // Optional: log which card was opened
+    function logCardOpen(title){
+      try{
+        if(!currentSessionId) return;
+        const evCol = collection(db, 'sessions', currentSessionId, 'events');
+        addDoc(evCol, { type:'card_open', title, ts: serverTimestamp() });
+      } catch(e){ /* noop */ }
+    }
+
+    // ===== Google Sign-In / Sign-Out =====
+    googleSignInBtn.addEventListener('click', async () => {
+      try{
+        await signInWithPopup(auth, provider);
+      } catch(e){
+        alert('Google sign-in failed');
+        console.error(e);
+      }
+    });
+
+    if(signOutBtn){
+      signOutBtn.addEventListener('click', async () => {
+        await endSessionLog();
+        await signOut(auth);
+        currentSessionId = null; activeMs = 0;
+        infoMsg.textContent = 'Signed out. Sign in with Google to continue.';
+        body.classList.add('locked');
+        document.querySelector('.layout').classList.remove('hidden');
+        showHideBtn.classList.add('hidden');
+      });
+    }
+
+    onAuthStateChanged(auth, async (user) => {
+      if(user){
+        // Show user chip
+        userChip.classList.remove('hidden');
+        document.getElementById('googleSignInBtn').classList.add('hidden');
+        userNameSpan.textContent = user.displayName || user.email;
+        if(user.photoURL){ userPhotoImg.src = user.photoURL; userPhotoImg.alt = user.displayName || 'User'; }
+
+        infoMsg.textContent = 'Signed in. Enter the password to unlock materials.';
+
+        // Start session log and tracking
+        await startSessionLog(user);
+        bindActivityTracking();
+      } else {
+        userChip.classList.add('hidden');
+        document.getElementById('googleSignInBtn').classList.remove('hidden');
+      }
+    });
+
+    /***********************************
+     * 3) Existing Unlock + UI logic
+     ***********************************/
     function unlock(){
       const entered = passInput.value.trim();
+      if(auth.currentUser == null){
+        alert('Please sign in with Google first.');
+        return;
+      }
       if(entered === PASSWORD){
         body.classList.remove('locked');
-        infoMsg.textContent = "Unlocked. Click a card to open the material. Use Quick Jump or search to find items.";
+        infoMsg.textContent = 'Unlocked. Click a card to open the material. Use Quick Jump or search to find items.';
         showHideBtn.classList.remove('hidden');
-        passInput.value = "";
+        passInput.value = '';
         passInput.blur();
       } else {
-        alert("Incorrect password");
+        alert('Incorrect password');
       }
     }
     unlockBtn.addEventListener('click', unlock);
@@ -357,7 +434,7 @@
     showHideBtn.addEventListener('click', () => {
       contentHidden = !contentHidden;
       document.querySelector('.layout').classList.toggle('hidden', contentHidden);
-      showHideBtn.textContent = contentHidden ? "Show" : "Hide";
+      showHideBtn.textContent = contentHidden ? 'Show' : 'Hide';
     });
 
     // Build Quick Jump
@@ -365,7 +442,7 @@
       const title = card.getAttribute('data-title') || 'Session';
       const id = card.id;
       const btn = document.createElement('button');
-      btn.type = "button";
+      btn.type = 'button';
       btn.textContent = title;
       btn.addEventListener('click', () => {
         document.getElementById(id).scrollIntoView({behavior:'smooth', block:'start'});
@@ -373,7 +450,7 @@
       jumpList.appendChild(btn);
     });
 
-    // Collapsible + Lazy load
+    // Collapsible + Lazy load + log card opens
     function loadIframe(iframe){
       if(iframe && !iframe.src){
         const url = iframe.getAttribute('data-src');
@@ -383,9 +460,10 @@
     cards.forEach(card => {
       const header = card.querySelector('.card-header');
       const iframe = card.querySelector('iframe');
+      const title = card.getAttribute('data-title') || 'Session';
       header.addEventListener('click', () => {
         const isOpen = card.classList.toggle('open');
-        if(isOpen){ loadIframe(iframe); }
+        if(isOpen){ loadIframe(iframe); logCardOpen(title); }
       });
     });
 
@@ -405,5 +483,26 @@
     });
     toTop.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
   </script>
+
+  <!-- ===== Firestore Security Rules (guidance) =====
+  Add the following in Firebase Console > Firestore > Rules to restrict access
+  (adjust allowed emails / domains as needed):
+
+  rules_version = '2';
+  service cloud.firestore {
+    match /databases/{database}/documents {
+      // Sessions
+      match /sessions/{sessionId} {
+        allow create: if request.auth != null; // anyone signed in can create a session log
+        allow update: if request.auth != null; // allow heartbeat updates
+        allow read: if false;                  // prevent reading logs from client by default
+      }
+      match /sessions/{sessionId}/events/{eventId} {
+        allow create: if request.auth != null;
+        allow read, update, delete: if false;
+      }
+    }
+  }
+  ===== -->
 </body>
 </html>
