@@ -314,6 +314,20 @@
     // Gate password (still required after Google auth)
     const PASSWORD = "Ignitedental@123";
 
+    const ALLOWED_EMAILS = [
+      "statu199.st@gmail.com",
+      "samina.pisjes@gmail.com",
+      "neha.tippri@gmail.com",
+      "sagguaman42@gmail.com",
+      "vinay.bannu009@gmail.com",
+      "dr.anishasahni@gmail.com",
+    ];
+
+    function isAllowedEmail(email) {
+      if (!email) return false;
+      return ALLOWED_EMAILS.includes(email.trim().toLowerCase());
+    }
+
     // Session logging vars
     let currentSessionId = null;
     let activeMs = 0;
@@ -419,6 +433,12 @@
 
     onAuthStateChanged(auth, async (user) => {
       if(user){
+        if (!isAllowedEmail(user.email)) {
+          alert('Access is not authorized for this account.');
+          await signOut(auth);
+          infoMsg.textContent = 'Sign in with Google first. After sign-in, enter the password to unlock materials.';
+          return;
+        }
         userChip.classList.remove('hidden');
         document.getElementById('googleSignInBtn').classList.add('hidden');
         userNameSpan.textContent = user.displayName || user.email;
@@ -440,6 +460,10 @@
       const entered = passInput.value.trim();
       if(auth.currentUser == null){
         alert('Please sign in with Google first.');
+        return;
+      }
+      if (!isAllowedEmail(auth.currentUser.email)) {
+        alert('Access is not authorized for this account.');
         return;
       }
       if(entered === PASSWORD){
