@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <title>Access Materials</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
   <style>
     :root{
       --bg:#f6faf4; --card:#ffffff; --accent:#2e7d32; --accent-2:#66bb6a; --text:#1b1b1b;
@@ -328,6 +331,14 @@
       return ALLOWED_EMAILS.includes(email.trim().toLowerCase());
     }
 
+    async function rejectUnauthorizedUser(user) {
+      if (!user || isAllowedEmail(user.email)) return true;
+      alert('Access is not authorized for this account.');
+      await signOut(auth);
+      infoMsg.textContent = 'Sign in with Google first. After sign-in, enter the password to unlock materials.';
+      return false;
+    }
+
     // Session logging vars
     let currentSessionId = null;
     let activeMs = 0;
@@ -404,7 +415,8 @@
     // ===== Google Sign-In / Sign-Out =====
     googleSignInBtn.addEventListener('click', async () => {
       try{
-        await signInWithPopup(auth, provider);
+        const result = await signInWithPopup(auth, provider);
+        await rejectUnauthorizedUser(result.user);
       } catch(e){
         // fallback for popup issues
         if (e?.code === 'auth/popup-blocked' || e?.code === 'auth/popup-closed-by-user') {
@@ -417,7 +429,9 @@
     });
 
     // handle redirect result if used
-    getRedirectResult(auth).catch(e => console.error('Redirect sign-in error', e));
+    getRedirectResult(auth)
+      .then(async (result) => { if (result?.user) await rejectUnauthorizedUser(result.user); })
+      .catch(e => console.error('Redirect sign-in error', e));
 
     if(signOutBtn){
       signOutBtn.addEventListener('click', async () => {
@@ -433,12 +447,7 @@
 
     onAuthStateChanged(auth, async (user) => {
       if(user){
-        if (!isAllowedEmail(user.email)) {
-          alert('Access is not authorized for this account.');
-          await signOut(auth);
-          infoMsg.textContent = 'Sign in with Google first. After sign-in, enter the password to unlock materials.';
-          return;
-        }
+        if (!(await rejectUnauthorizedUser(user))) return;
         userChip.classList.remove('hidden');
         document.getElementById('googleSignInBtn').classList.add('hidden');
         userNameSpan.textContent = user.displayName || user.email;
